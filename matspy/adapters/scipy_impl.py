@@ -56,7 +56,7 @@ class SciPyAdapter:
 
 
 class SciPyCSRAdapter(SciPyAdapter, MatrixAdapterRow):
-    def __init__(self, mat: scipy.sparse.csr_array):
+    def __init__(self, mat: scipy.sparse.csr_matrix):
         super().__init__(mat)
 
     def get_row(self, row_idx: int, col_range: Tuple[int, int]) -> Iterable[Any]:
@@ -75,7 +75,7 @@ class SciPyCSRAdapter(SciPyAdapter, MatrixAdapterRow):
 
 
 class SciPyCSCAdapter(SciPyAdapter, MatrixAdapterCol):
-    def __init__(self, mat: scipy.sparse.csc_array):
+    def __init__(self, mat: scipy.sparse.csc_matrix):
         super().__init__(mat)
 
     def get_col(self, col_idx: int, row_range: Tuple[int, int]) -> Iterable[Any]:
