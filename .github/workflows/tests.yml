@@ -28,19 +28,23 @@ jobs:
       run: pytest tests/test_basic.py
 
     - name: Install test dependencies
+      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
       run: pip install pytest numpy matplotlib pytest-subtests html5lib scipy
 
     - name: Python Test without Jupyter
+      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
       run: pytest
 
     - name: Install Jupyter
+      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
       run: pip install jupyter
 
     - name: Python Test with Jupyter
+      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
       run: pytest
 
     - name: Python Test with Coverage
-      if: contains(matrix.os, 'ubuntu')
+      if: ${{ contains(matrix.os, 'ubuntu') && !contains(matrix.python-version, 'pypy') }}
       run: |
         pip install pytest-cov
         pytest --cov=matspy --cov-report term --cov-report=xml
