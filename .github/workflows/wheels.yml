@@ -19,7 +19,8 @@ jobs:
 
       - name: Make README links absolute
         run: |
-          tools/make_readme_links_absolute.sh > README-PyPI.md
+          cd tools
+          ./make_readme_links_absolute.sh > README-PyPI.md
           rm README.md
           mv README-PyPI.md README.md
 
@@ -32,10 +33,10 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           # PyPI does not allow replacing a file. Without this flag the entire action fails if even a single duplicate exists.
-          skip_existing: true
+          skip-existing: true
           verbose: true
           # Real PyPI:
 #          password: ${{ secrets.PYPI_API_TOKEN }}
           # Test PyPI:
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          repository-url: https://test.pypi.org/legacy/
