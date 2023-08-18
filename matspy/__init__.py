@@ -4,7 +4,7 @@
 
 import dataclasses
 from dataclasses import dataclass, asdict
-from typing import Type, Callable
+from typing import Type, Callable, Tuple, Dict, List
 
 from .adapters import Driver, MatrixAdapter, MatrixSpyAdapter
 from .html_formatter import HTMLTableFormatter, NotebookHTMLFormatter
@@ -91,10 +91,10 @@ class MatSpyParams:
     If None then defaults to True if dpi and buckets are also None.
     """
 
-    color_empty: tuple[float, float, float, float] | str = (1.0, 1.0, 1.0, 1.0)  # RGBA: empty space is white
+    color_empty: Tuple[float, float, float, float] | str = (1.0, 1.0, 1.0, 1.0)  # RGBA: empty space is white
     """Spy (and sparkline) color for empty space. Can be anything matplotlib accepts, like RGB or RGBA tuples."""
 
-    color_full: tuple[float, float, float, float] | str = (0.0, 0.0, 1.0, 1.0)  # RGBA: non-zeros are blue
+    color_full: Tuple[float, float, float, float] | str = (0.0, 0.0, 1.0, 1.0)  # RGBA: non-zeros are blue
     """Spy (and sparkline) color for a full bucket. Can be anything matplotlib accepts, like RGB or RGBA tuples."""
 
     float_formatter: Callable[[float], str] = lambda f: format(f, ".4g")
@@ -166,9 +166,9 @@ class MatSpyParams:
 
 
 params = MatSpyParams()
-_drivers: list[Type[Driver]] = []
-_driver_map: dict[str, Type[Driver]] = {}
-_driver_registration_notify: list[Callable[[Type[Driver]], None]] = []
+_drivers: List[Type[Driver]] = []
+_driver_map: Dict[str, Type[Driver]] = {}
+_driver_registration_notify: List[Callable[[Type[Driver]], None]] = []
 
 
 def register_driver(driver: Type[Driver]):

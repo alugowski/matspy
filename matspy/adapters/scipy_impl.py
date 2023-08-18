@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 import bisect
-from typing import Any, Iterable
+from typing import Any, Iterable, Tuple
 
 import numpy as np
 import scipy.sparse
@@ -59,7 +59,7 @@ class SciPyCSRAdapter(SciPyAdapter, MatrixAdapterRow):
     def __init__(self, mat: scipy.sparse.csr_array):
         super().__init__(mat)
 
-    def get_row(self, row_idx: int, col_range: tuple[int, int]) -> Iterable[Any]:
+    def get_row(self, row_idx: int, col_range: Tuple[int, int]) -> Iterable[Any]:
         start = self.mat.indptr[row_idx]
         end = self.mat.indptr[row_idx + 1]
 
@@ -78,7 +78,7 @@ class SciPyCSCAdapter(SciPyAdapter, MatrixAdapterCol):
     def __init__(self, mat: scipy.sparse.csc_array):
         super().__init__(mat)
 
-    def get_col(self, col_idx: int, row_range: tuple[int, int]) -> Iterable[Any]:
+    def get_col(self, col_idx: int, row_range: Tuple[int, int]) -> Iterable[Any]:
         start = self.mat.indptr[col_idx]
         end = self.mat.indptr[col_idx + 1]
 
@@ -97,14 +97,14 @@ class SciPyCOOAdapter(SciPyAdapter, MatrixAdapterCoo):
     def __init__(self, mat: scipy.sparse.coo_array):
         super().__init__(mat)
 
-    def get_coo(self, row_range: tuple[int, int], col_range: tuple[int, int]) -> Iterable[tuple[int, int, Any]]:
+    def get_coo(self, row_range: Tuple[int, int], col_range: Tuple[int, int]) -> Iterable[Tuple[int, int, Any]]:
         mask = (self.mat.row >= row_range[0]) & (self.mat.row < row_range[1]) & \
                (self.mat.col >= col_range[0]) & (self.mat.col < col_range[1])
 
         return zip(self.mat.row[mask], self.mat.col[mask], self.mat.data[mask])
 
 
-def generate_spy_triple_product_coo(matrix_shape, spy_shape) -> tuple[scipy.sparse.coo_array, scipy.sparse.coo_array]:
+def generate_spy_triple_product_coo(matrix_shape, spy_shape) -> Tuple[scipy.sparse.coo_array, scipy.sparse.coo_array]:
     # construct a triple product that will scale the matrix
     left, right = generate_spy_triple_product(matrix_shape, spy_shape)
 

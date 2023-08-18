@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 from abc import ABC, abstractmethod
-from typing import Any, Iterable, Optional
+from typing import Any, Iterable, Optional, Tuple
 
 import numpy as np
 
@@ -48,19 +48,19 @@ class MatrixAdapter(ABC):
 
 class MatrixAdapterRow(MatrixAdapter):
     @abstractmethod
-    def get_row(self, row_idx: int, col_range: tuple[int, int]) -> Iterable[Any]:
+    def get_row(self, row_idx: int, col_range: Tuple[int, int]) -> Iterable[Any]:
         pass
 
 
 class MatrixAdapterCol(MatrixAdapter):
     @abstractmethod
-    def get_col(self, col_idx: int, row_range: tuple[int, int]) -> Iterable[Any]:
+    def get_col(self, col_idx: int, row_range: Tuple[int, int]) -> Iterable[Any]:
         pass
 
 
 class MatrixAdapterCoo(MatrixAdapter):
     @abstractmethod
-    def get_coo(self, row_range: tuple[int, int], col_range: tuple[int, int]) -> Iterable[tuple[int, int, Any]]:
+    def get_coo(self, row_range: Tuple[int, int], col_range: Tuple[int, int]) -> Iterable[Tuple[int, int, Any]]:
         pass
 
 
@@ -81,7 +81,7 @@ class MatrixSpyAdapter(ABC):
 class Driver(ABC):
     @staticmethod
     @abstractmethod
-    def get_supported_types() -> Iterable[tuple[str, str, bool]]:
+    def get_supported_types() -> Iterable[Tuple[str, str, bool]]:
         pass
 
     @staticmethod
@@ -96,7 +96,7 @@ class Driver(ABC):
 
 
 class Truncated2DMatrix(MatrixAdapterRow):
-    def __init__(self, orig_shape: tuple[int, int], display_shape: tuple[int, int], num_after_dots=2,
+    def __init__(self, orig_shape: Tuple[int, int], display_shape: Tuple[int, int], num_after_dots=2,
                  description=None):
         self.orig_shape = orig_shape
         self.display_shape = (min(orig_shape[0], display_shape[0]), min(orig_shape[1], display_shape[1]))
@@ -137,7 +137,7 @@ class Truncated2DMatrix(MatrixAdapterRow):
             # noinspection PyTypeChecker
             return list(range(pre_dot_end)) + [None] + list(range(post_dot_start, self.orig_shape[1]))
 
-    def get_row(self, row_idx: int, col_range: tuple[int, int] = None):
+    def get_row(self, row_idx: int, col_range: Tuple[int, int] = None):
         if col_range is None:
             return self.elements[row_idx]
         else:
@@ -170,14 +170,14 @@ class Truncated2DMatrix(MatrixAdapterRow):
             if self.dot_row is not None:
                 self.elements[self.dot_row][self.dot_col] = dots["d"]
 
-    def get_dot_indices_row(self) -> tuple[int, int]:
+    def get_dot_indices_row(self) -> Tuple[int, int]:
         if self.dot_row is None:
             return self.orig_shape[0], self.orig_shape[0]
         else:
             num_post_dot = self.display_shape[0] - 1 - self.dot_row
             return self.dot_row, self.orig_shape[0] - num_post_dot
 
-    def get_dot_indices_col(self) -> tuple[int, int]:
+    def get_dot_indices_col(self) -> Tuple[int, int]:
         if self.dot_col is None:
             return self.orig_shape[1], self.orig_shape[1]
         else:
@@ -252,7 +252,7 @@ def to_trunc(mat: MatrixAdapter, max_rows, max_cols, num_after_dots) -> Truncate
 
 
 def generate_spy_triple_product(matrix_shape, spy_shape, uneven_to_end=True) ->\
-        tuple[tuple[np.array, np.array], tuple[np.array, np.array]]:
+        Tuple[Tuple[np.array, np.array], Tuple[np.array, np.array]]:
     """
     Generate left and right matrices to create a matrix spy plot using two matrix multiplications.
     """
