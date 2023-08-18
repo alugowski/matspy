@@ -1,0 +1,6 @@
+jupyter
+scipy
+matplotlib
+pytest
+pytest-subtests
+html5lib
