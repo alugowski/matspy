@@ -19,8 +19,7 @@ jobs:
 
       - name: Make README links absolute
         run: |
-          cd tools
-          ./make_readme_links_absolute.sh > README-PyPI.md
+          tools/make_readme_links_absolute.sh > README-PyPI.md
           rm README.md
           mv README-PyPI.md README.md
 
