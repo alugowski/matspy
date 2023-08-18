@@ -19,9 +19,9 @@ class SciPyTests(unittest.TestCase):
             scipy.sparse.random(10, 10, density=0.4).tocoo(),
             scipy.sparse.random(5, 10, density=0.4).tocsr(),
             scipy.sparse.random(5, 1, density=0.4).tocsc(),
-            scipy.sparse.coo_array(([], ([], [])), shape=(10, 10)).tocoo(),
-            scipy.sparse.coo_array(([], ([], [])), shape=(10, 10)).tocsr(),
-            scipy.sparse.coo_array(([], ([], [])), shape=(10, 10)).tocsc(),
+            scipy.sparse.coo_matrix(([], ([], [])), shape=(10, 10)).tocoo(),
+            scipy.sparse.coo_matrix(([], ([], [])), shape=(10, 10)).tocsr(),
+            scipy.sparse.coo_matrix(([], ([], [])), shape=(10, 10)).tocsc(),
             generate_fixed_value(10, 10)
         ]
 

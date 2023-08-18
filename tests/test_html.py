@@ -24,7 +24,7 @@ def generate_fixed_value(m, n):
         cols[i] = c
         data[i] = (r+1)*row_factor + c
 
-    return scipy.sparse.coo_array((data, (rows, cols)), shape=(m, n))
+    return scipy.sparse.coo_matrix((data, (rows, cols)), shape=(m, n))
 
 
 class ToHTMLTests(unittest.TestCase):
@@ -33,7 +33,7 @@ class ToHTMLTests(unittest.TestCase):
             scipy.sparse.random(10, 10, density=0.4),
             scipy.sparse.random(5, 10, density=0.4),
             scipy.sparse.random(5, 1, density=0.4),
-            scipy.sparse.coo_array(([], ([], [])), shape=(10, 10)),
+            scipy.sparse.coo_matrix(([], ([], [])), shape=(10, 10)),
             generate_fixed_value(10, 10)
         ]
 
@@ -78,7 +78,7 @@ class ToHTMLTests(unittest.TestCase):
 
     def test_precision(self):
         f = 0.123456789
-        mat = scipy.sparse.coo_array(([f], ([0], [0])), shape=(1, 1))
+        mat = scipy.sparse.coo_matrix(([f], ([0], [0])), shape=(1, 1))
 
         # default precision
         res = to_html(mat)

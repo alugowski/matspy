@@ -16,9 +16,10 @@ class SciPyDriver(Driver):
             for arr_mat in ("array", "matrix"):
                 for fmt in formats:
                     ret.append((mod, f"{fmt}_{arr_mat}", True))
-        for arr_mat in ("array", "matrix"):
-            for fmt in formats:
+        for fmt in formats:
+            for arr_mat in ("array", "matrix"):
                 ret.append((f"scipy.sparse._{fmt}", f"{fmt}_{arr_mat}", True))
+            ret.append((f"scipy.sparse.{fmt}", f"{fmt}_matrix", True))
         return ret
 
     @staticmethod

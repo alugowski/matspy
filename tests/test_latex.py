@@ -19,7 +19,7 @@ class ToLatexTests(unittest.TestCase):
             scipy.sparse.random(10, 10, density=0.4),
             scipy.sparse.random(5, 10, density=0.4),
             scipy.sparse.random(5, 1, density=0.4),
-            scipy.sparse.coo_array(([], ([], [])), shape=(10, 10)),
+            scipy.sparse.coo_matrix(([], ([], [])), shape=(10, 10)),
             generate_fixed_value(10, 10)
         ]
 
@@ -52,7 +52,7 @@ class ToLatexTests(unittest.TestCase):
 
     def test_precision(self):
         f = 0.123456789
-        mat = scipy.sparse.coo_array(([f], ([0], [0])), shape=(1, 1))
+        mat = scipy.sparse.coo_matrix(([f], ([0], [0])), shape=(1, 1))
 
         # default precision
         res = to_latex(mat)

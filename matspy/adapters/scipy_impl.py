@@ -94,7 +94,7 @@ class SciPyCSCAdapter(SciPyAdapter, MatrixAdapterCol):
 
 
 class SciPyCOOAdapter(SciPyAdapter, MatrixAdapterCoo):
-    def __init__(self, mat: scipy.sparse.coo_array):
+    def __init__(self, mat: scipy.sparse.coo_matrix):
         super().__init__(mat)
 
     def get_coo(self, row_range: Tuple[int, int], col_range: Tuple[int, int]) -> Iterable[Tuple[int, int, Any]]:
@@ -104,20 +104,20 @@ class SciPyCOOAdapter(SciPyAdapter, MatrixAdapterCoo):
         return zip(self.mat.row[mask], self.mat.col[mask], self.mat.data[mask])
 
 
-def generate_spy_triple_product_coo(matrix_shape, spy_shape) -> Tuple[scipy.sparse.coo_array, scipy.sparse.coo_array]:
+def generate_spy_triple_product_coo(matrix_shape, spy_shape) -> Tuple[scipy.sparse.coo_matrix, scipy.sparse.coo_matrix]:
     # construct a triple product that will scale the matrix
     left, right = generate_spy_triple_product(matrix_shape, spy_shape)
 
     left_shape, (left_rows, left_cols) = left
     right_shape, (right_rows, right_cols) = right
-    left_mat = scipy.sparse.coo_array((np.ones(len(left_rows)), (left_rows, left_cols)), shape=left_shape)
-    right_mat = scipy.sparse.coo_array((np.ones(len(right_rows)), (right_rows, right_cols)), shape=right_shape)
+    left_mat = scipy.sparse.coo_matrix((np.ones(len(left_rows)), (left_rows, left_cols)), shape=left_shape)
+    right_mat = scipy.sparse.coo_matrix((np.ones(len(right_rows)), (right_rows, right_cols)), shape=right_shape)
 
     return left_mat, right_mat
 
 
 class SciPySpy(SciPyAdapter, MatrixSpyAdapter):
-    def __init__(self, mat: scipy.sparse.coo_array):
+    def __init__(self, mat: scipy.sparse.coo_matrix):
         super().__init__(mat)
 
     def get_spy(self, spy_shape):
@@ -136,4 +136,4 @@ class SciPySpy(SciPyAdapter, MatrixSpyAdapter):
         # restore original matrix data
         self.mat.data = mat_data_save
 
-        return spy.todense()
+        return np.array(spy.todense())
