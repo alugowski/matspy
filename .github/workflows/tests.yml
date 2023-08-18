@@ -22,7 +22,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install base dependencies
-      run: pip install numpy matplotlib
+      run: pip install numpy matplotlib pytest
 
     - name: Test minimums
       run: pytest tests/test_basic.py
