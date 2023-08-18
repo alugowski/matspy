@@ -1,6 +1,6 @@
 [project]
 name = "matspy"
-version = "0.4.1"
+version = "0.4.2"
 description="Sparse matrix spy plot, HTML, and LaTeX rendering with Jupyter integration."
 readme = "README.md"
 authors = [
