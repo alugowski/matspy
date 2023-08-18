@@ -12,10 +12,10 @@ Turn this:
 
 To one of these:
 
-|                        Spy Plot                        |                        HTML                         |                         LaTeX                         |
-|:------------------------------------------------------:|:---------------------------------------------------:|:-----------------------------------------------------:|
-| <img src="images/spy.png" width="200" alt="Spy plot"/> | <img src="images/html.png" width="200" alt="HTML"/> | <img src="images/latex.png" width="200" alt="LaTeX"/> |
-|                        `spy(A)`                        |                    `mdisplay(A)`                    |                `mdisplay(A, 'latex')`                 |
+|                          Spy Plot                          |                          HTML                           |                           LaTeX                           |
+|:----------------------------------------------------------:|:-------------------------------------------------------:|:---------------------------------------------------------:|
+| <img src="doc/images/spy.png" width="200" alt="Spy plot"/> | <img src="doc/images/html.png" width="200" alt="HTML"/> | <img src="doc/images/latex.png" width="200" alt="LaTeX"/> |
+|                          `spy(A)`                          |                      `mdisplay(A)`                      |                  `mdisplay(A, 'latex')`                   |
 
 ```python
 from matspy import spy, mdisplay
@@ -45,7 +45,7 @@ to format supported sparse matrix types. Importing the `matspy.jupyter` module p
 ```python
 from matspy.jupyter import spy
 ```
-<img src="images/jupyter_register.png" width="619" alt="Effect of Jupyter integration"/>
+<img src="doc/images/jupyter_register.png" width="619" alt="Effect of Jupyter integration"/>
 
 If you prefer LaTeX:
 ```python
@@ -78,13 +78,13 @@ Tabular outputs are instant.
 
 Large matrices are downscaled using two native matrix multiplies. The final dense 2D image is small.
 
-<img src="images/triple_product.png" height="125" width="400" alt="triple product"/>
+<img src="doc/images/triple_product.png" height="125" width="400" alt="triple product"/>
 
 # Spy Plot Anti-Aliasing
 One application of spy plots is to quickly see if a matrix has a noticeable structure. Aliasing artifacts can give the false impression of structure where none exists, such as moiré or even a false grid pattern.
 
 MatSpy employs some simple methods to help eliminate these effects in most cases.
 
-![sparkline AA](images/sparkline_aa.png)
+![sparkline AA](doc/images/sparkline_aa.png)
 
 See the [Anti-Aliasing demo](demo-anti-aliasing.ipynb) for more.
