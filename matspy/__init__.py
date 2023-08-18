@@ -91,10 +91,10 @@ class MatSpyParams:
     If None then defaults to True if dpi and buckets are also None.
     """
 
-    color_empty: Tuple[float, float, float, float] | str = (1.0, 1.0, 1.0, 1.0)  # RGBA: empty space is white
+    color_empty: Union[Tuple[float, float, float, float], str] = (1.0, 1.0, 1.0, 1.0)  # RGBA: empty space is white
     """Spy (and sparkline) color for empty space. Can be anything matplotlib accepts, like RGB or RGBA tuples."""
 
-    color_full: Tuple[float, float, float, float] | str = (0.0, 0.0, 1.0, 1.0)  # RGBA: non-zeros are blue
+    color_full: Union[Tuple[float, float, float, float], str] = (0.0, 0.0, 1.0, 1.0)  # RGBA: non-zeros are blue
     """Spy (and sparkline) color for a full bucket. Can be anything matplotlib accepts, like RGB or RGBA tuples."""
 
     float_formatter: Callable[[float], str] = lambda f: format(f, ".4g")
