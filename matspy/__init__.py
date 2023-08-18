@@ -4,7 +4,7 @@
 
 import dataclasses
 from dataclasses import dataclass, asdict
-from typing import Type, Callable, Tuple, Dict, List
+from typing import Type, Callable, Tuple, Dict, List, Union
 
 from .adapters import Driver, MatrixAdapter, MatrixSpyAdapter
 from .html_formatter import HTMLTableFormatter, NotebookHTMLFormatter
@@ -39,7 +39,7 @@ class MatSpyParams:
     indices_spy: bool = None
     """If not None then overrides 'indices' for spy plots only."""
 
-    title: bool | str = True
+    title: Union[bool, str] = True
     """Title of table or spy plot. If `True` then generate matrix description such as dimensions, nnz, datatype."""
 
     title_latex: bool = False
