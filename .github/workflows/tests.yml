@@ -22,15 +22,21 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install base dependencies
-      run: pip install pytest numpy matplotlib pytest-subtests html5lib
+      run: pip install numpy matplotlib
 
-#    - name: Python Test
-#      run: pytest
+    - name: Test minimums
+      run: pytest tests/test_basic.py
 
-    - name: Install scipy
-      run: pip install scipy
+    - name: Install test dependencies
+      run: pip install pytest numpy matplotlib pytest-subtests html5lib scipy
 
-    - name: Python Test
+    - name: Python Test without Jupyter
+      run: pytest
+
+    - name: Install Jupyter
+      run: pip install jupyter
+
+    - name: Python Test with Jupyter
       run: pytest
 
     - name: Python Test with Coverage

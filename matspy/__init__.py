@@ -298,10 +298,14 @@ def _register_jupyter_formatter(mime_type: str, repr_method: Callable):
     """
     # This import is unnecessary but makes static type checking work.
     # noinspection PyProtectedMember
-    from IPython import get_ipython
+    try:
+        import IPython
+    except ImportError:
+        # no Jupyter
+        return
 
     try:
-        formatter = get_ipython().display_formatter.formatters[mime_type]
+        formatter = IPython.get_ipython().display_formatter.formatters[mime_type]
     except AttributeError:
         # not running in a notebook
         return
