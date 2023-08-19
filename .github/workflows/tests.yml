@@ -25,7 +25,7 @@ jobs:
       run: pip install numpy matplotlib pytest
 
     - name: Test minimums
-      run: pytest tests/test_basic.py
+      run: pytest tests/test_basic.py tests/test_list_like.py
 
     - name: Install test dependencies
       if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy

@@ -1,3 +1,7 @@
+[![tests](https://github.com/alugowski/matspy/actions/workflows/tests.yml/badge.svg)](https://github.com/alugowski/matspy/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/alugowski/matspy/graph/badge.svg?token=m2xJcl5iAQ)](https://codecov.io/gh/alugowski/matspy)
+[![PyPI version](https://badge.fury.io/py/matspy.svg)](https://pypi.org/project/matspy/)
+
 # MatSpy
 
 Sparse matrix spy plot, HTML, and LaTeX rendering with Jupyter integration.
