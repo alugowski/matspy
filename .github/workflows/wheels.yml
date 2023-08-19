@@ -35,7 +35,7 @@ jobs:
           skip-existing: true
           verbose: true
           # Real PyPI:
-#          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.PYPI_API_TOKEN }}
           # Test PyPI:
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository-url: https://test.pypi.org/legacy/
+#          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+#          repository-url: https://test.pypi.org/legacy/
