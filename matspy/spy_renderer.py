@@ -147,7 +147,7 @@ def spy_to_mpl(mat, **kwargs):
 
     fig, ax = plt.subplots()
     fig.set_size_inches(options.figsize, options.figsize)
-    if options.indices_spy:
+    if options.indices:
         ax.xaxis.set_major_locator(MaxNLocator(integer=True, min_n_ticks=0, nbins='auto'))
         ax.xaxis.set_ticks_position('bottom')
         ax.yaxis.set_major_locator(MaxNLocator(integer=True, min_n_ticks=0, nbins='auto'))

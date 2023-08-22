@@ -6,19 +6,9 @@ import unittest
 
 
 class ImportTests(unittest.TestCase):
-    def test_import_not_in_jupyter(self):
+    def test_import(self):
         # noinspection PyUnresolvedReferences
-        import matspy.jupyter
-        self.assertEqual(True, True)  # did not raise
-
-    def test_jupyter_html(self):
-        # noinspection PyUnresolvedReferences
-        import matspy.jupyter_html
-        self.assertEqual(True, True)  # did not raise
-
-    def test_jupyter_latex(self):
-        # noinspection PyUnresolvedReferences
-        import matspy.jupyter_latex
+        import matspy
         self.assertEqual(True, True)  # did not raise
 
 
