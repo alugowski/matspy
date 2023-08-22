@@ -7,12 +7,12 @@ from typing import Any, Iterable
 from . import Driver, MatrixSpyAdapter
 
 
-class SciPyDriver(Driver):
+class GraphBLASDriver(Driver):
     @staticmethod
     def get_supported_type_prefixes() -> Iterable[str]:
-        return ["scipy.sparse."]
+        return ["graphblas."]
 
     @staticmethod
     def adapt_spy(mat: Any) -> MatrixSpyAdapter:
-        from .scipy_impl import SciPySpy
-        return SciPySpy(mat)
+        from .graphblas_impl import GraphBLASSpy
+        return GraphBLASSpy(mat)

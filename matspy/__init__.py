@@ -117,6 +117,9 @@ def _register_bundled():
     from .adapters.scipy_driver import SciPyDriver
     register_driver(SciPyDriver)
 
+    from .adapters.graphblas_driver import GraphBLASDriver
+    register_driver(GraphBLASDriver)
+
 
 _register_bundled()
 
