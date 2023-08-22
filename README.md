@@ -8,6 +8,7 @@ Sparse matrix spy plot and sparkline renderer.
 
 Supports:
 * `scipy.sparse` sparse matrices and arrays like `csr_matrix` and `coo_array`.
+* `python-graphblas` sparse matrix `gb.Matrix`.
 
 For HTML/LaTeX see [MatRepr](https://github.com/alugowski/matrepr).
 
