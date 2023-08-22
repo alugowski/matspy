@@ -4,3 +4,4 @@ matplotlib
 pytest
 pytest-subtests
 html5lib
+matrepr

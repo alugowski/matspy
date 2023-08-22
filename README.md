@@ -4,91 +4,95 @@
 
 # MatSpy
 
-Sparse matrix spy plot, HTML, and LaTeX rendering with Jupyter integration.
-
-## Purpose
-
-Turn this:
-```
-<1005x1005 sparse array of type '<class 'numpy.float64'>'
-	with 25571 stored elements in Compressed Sparse Row format>
-```
-
-To one of these:
-
-|                          Spy Plot                          |                          HTML                           |                           LaTeX                           |
-|:----------------------------------------------------------:|:-------------------------------------------------------:|:---------------------------------------------------------:|
-| <img src="doc/images/spy.png" width="200" alt="Spy plot"/> | <img src="doc/images/html.png" width="200" alt="HTML"/> | <img src="doc/images/latex.png" width="200" alt="LaTeX"/> |
-|                          `spy(A)`                          |                      `mdisplay(A)`                      |                  `mdisplay(A, 'latex')`                   |
-
-```python
-from matspy import spy, mdisplay
-```
+Sparse matrix spy plot and sparkline renderer.
 
 Supports:
-* `scipy.sparse` sparse matrices (both `matrix` and `array` variants)
-* `list`, `tuple` (HTML and LaTeX only)
+* `scipy.sparse` sparse matrices and arrays like `csr_matrix` and `coo_array`.
 
-## Spy plots
+For HTML/LaTeX see [MatRepr](https://github.com/alugowski/matrepr).
+
+## Quick Start
+
+```shell
+pip install matspy
+```
+
+```python
+from matspy import spy
+
+spy(A)
+```
+
+![Spy Plot](doc/images/spy.png)
+
+See a [Jupyter notebook demo](demo.ipynb).
+
+## Methods
 * `spy(A)`: Plot the sparsity pattern (location of nonzero values) of sparse matrix `A`.
-* `to_sparkline(A)`: Return a small spy plot as an HTML string.
+* `to_sparkline(A)`: Return a small spy plot as a self-contained HTML string.
 * `spy_to_mpl(A)`: Same as `spy()` but returns the matplotlib Figure without showing it.
 * `to_spy_heatmap(A)`: Return the raw 2D array for spy plots. 
 
-## Tabular
-* `to_html(A)`: Format `A` as an HTML table.
-* `to_latex(A)`: Format `A` as a LaTeX matrix.
+## Arguments
 
-These methods return a string. Use `matspy.mdisplay()` to display the HTML/LaTeX in Jupyter.
+All methods take the same arguments. Apart from the matrix itself:
 
-## Jupyter Integration
-
-MatSpy can integrate with [Jupyter's formatter](https://ipython.readthedocs.io/en/stable/config/integrating.html)
-to format supported sparse matrix types. Importing the `matspy.jupyter` module performs this registration:
-
-```python
-from matspy.jupyter import spy
-```
-<img src="doc/images/jupyter_register.png" width="619" alt="Effect of Jupyter integration"/>
-
-If you prefer LaTeX:
-```python
-from matspy.jupyter_latex import spy
-```
-
-To avoid registering anything, just import `matspy`:
-```python
-from matspy import spy
-```
-
-### Selected arguments
-
-#### Accepted by all methods
 * `title`: string label. If `True`, then a matrix description is auto generated.
 * `indices`: Whether to show matrix indices.
-
-#### HTML/Latex
-* `max_rows`, `max_rows`: size of table. Matrices larger than this are truncated with ellipses.
-
-#### Spy plots
 * `figsize`, `sparkline_size`: size of the plot, in inches
 * `shading`: `binary`, `relative`, `absolute`.
-* `dpi`, `buckets`: pixel count of spy plot, relative to figure size or absolute, respectively.
+* `buckets`: spy plot pixels (longest side).
+* `dpi`: determine `buckets` relative to figure size.
 
+### Overriding defaults
+`matspy.params` contains the default values for all arguments.
+
+For example, to default to binary shading, no title, and no indices:
+
+```python
+matspy.params.shading = 'binary'
+matspy.params.title = False
+matspy.params.indices = False
+```
+
+## Jupyter
+
+`spy()` simply shows a matplotlib figure and works well within Jupyter.
+
+`to_sparkline()` can create small matrix visualizations that work anywhere HTML is displayed.
+Multiple sparklines can be automatically to-scale with each other using the `retscale` and `scale` arguments.
 
 # Fast
-All operations work with very large matrices. A spy plot of tens of millions of elements takes less than half a second.
-Tabular outputs are instant.
+All operations work with very large matrices.
+A spy plot of tens of millions of elements takes less than half a second.
 
 Large matrices are downscaled using two native matrix multiplies. The final dense 2D image is small.
 
 <img src="doc/images/triple_product.png" height="125" width="400" alt="triple product"/>
 
 # Spy Plot Anti-Aliasing
-One application of spy plots is to quickly see if a matrix has a noticeable structure. Aliasing artifacts can give the false impression of structure where none exists, such as moiré or even a false grid pattern.
+One application of spy plots is to quickly see if a matrix has a noticeable structure.
+Aliasing artifacts can give the false impression of structure where none exists,
+such as moiré or even a false grid pattern.
 
 MatSpy employs some simple methods to help eliminate these effects in most cases.
 
 ![sparkline AA](doc/images/sparkline_aa.png)
 
 See the [Anti-Aliasing demo](demo-anti-aliasing.ipynb) for more.
+
+# How to support more packages
+
+Each package that MatSpy supports implements two classes:
+
+* `Driver`: Declares what types are supported and supplies an adapter.
+  * `get_supported_type_prefixes`: This declares what types are supported, as strings to avoid unnecessary imports.
+  * `adapt_spy(A)`: Returns a `MatrixSpyAdapter` for a matrix that this driver supports.
+* `MatrixSpyAdapter`. A common interface for extracting spy data.
+  * `describe()`: Describes the adapted matrix. This description serves as the plot title.
+  * `get_shape()`: Returns the adapted matrix's shape.
+  * `get_spy()`: Returns spy plot data as a dense 2D numpy array.
+
+See [matspy/adapters](matspy/adapters) for details.
+
+You may use `matspy.register_driver` to register a Driver for your own matrix class.
