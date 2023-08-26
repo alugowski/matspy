@@ -8,7 +8,9 @@ Sparse matrix spy plot and sparkline renderer.
 
 Supports:
 * `scipy.sparse` sparse matrices and arrays like `csr_matrix` and `coo_array`.
-* `python-graphblas` sparse matrix `gb.Matrix`.
+* `python-graphblas` sparse matrix `gb.Matrix`. [See demo.](demo-python-graphblas.ipynb)
+
+See a [Jupyter notebook demo](demo.ipynb).
 
 For HTML/LaTeX see [MatRepr](https://github.com/alugowski/matrepr).
 
@@ -25,9 +27,6 @@ spy(A)
 ```
 
 <img src="doc/images/spy.png" width="400" alt="Spy Plot"/>
-
-
-See a [Jupyter notebook demo](demo.ipynb).
 
 ## Methods
 * `spy(A)`: Plot the sparsity pattern (location of nonzero values) of sparse matrix `A`.
