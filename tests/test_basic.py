@@ -4,12 +4,17 @@
 
 import unittest
 
+import matspy
 
-class ImportTests(unittest.TestCase):
-    def test_import(self):
-        # noinspection PyUnresolvedReferences
-        import matspy
-        self.assertEqual(True, True)  # did not raise
+
+class BasicTests(unittest.TestCase):
+    def test_adaptation_errors(self):
+        with self.assertRaises(AttributeError):
+            matspy._get_spy_adapter(set())
+
+    def test_argument_errors(self):
+        with self.assertRaises(ValueError):
+            matspy.to_spy_heatmap([], shading="foobar")
 
 
 if __name__ == '__main__':

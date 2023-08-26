@@ -86,7 +86,7 @@ class MatSpyParams:
                 setattr(ret, key, value)
 
         # validate
-        self._assert_one_of("shading", ['relative', 'absolute', 'binary'])
+        ret._assert_one_of("shading", ['relative', 'absolute', 'binary'])
 
         # Apply some default rules
         if ret.spy_aa_tweaks_enabled is None:
