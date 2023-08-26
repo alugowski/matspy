@@ -24,7 +24,8 @@ from matspy import spy
 spy(A)
 ```
 
-![Spy Plot](doc/images/spy.png)
+<img src="doc/images/spy.png" width="400" alt="Spy Plot"/>
+
 
 See a [Jupyter notebook demo](demo.ipynb).
 
