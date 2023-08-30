@@ -4,7 +4,7 @@
 
 import unittest
 
-from matspy import spy_to_mpl, to_sparkline
+from matspy import spy_to_mpl, to_sparkline, to_spy_heatmap
 import matspy
 
 try:
@@ -38,6 +38,20 @@ class GraphBLASTests(unittest.TestCase):
         mat = gb.Matrix.from_coo([0, 1, 2, 3, 4], [0, 0, 0, 0, 0], [0, 1, 2, 3, 4], nrows=5, ncols=1)
         adapter = matspy._get_spy_adapter(mat)
         self.assertEqual((5, 1), adapter.get_shape())
+
+    def test_buckets_1(self):
+        import scipy.sparse
+
+        density = 0.3
+        # for dims in [(501, 501), (10, 10)]:
+        for dims in [(10, 10)]:
+            r = gb.io.from_scipy_sparse(scipy.sparse.random(*dims, density=density))
+            heatmap = to_spy_heatmap(r, buckets=1, shading="absolute")
+            self.assertEqual(len(heatmap), 1)
+            self.assertAlmostEqual(heatmap[0][0], density, places=2)
+
+            heatmap = to_spy_heatmap(r, buckets=1, shading="binary")
+            self.assertAlmostEqual(heatmap[0][0], 1.0, places=2)
 
 
 if __name__ == '__main__':

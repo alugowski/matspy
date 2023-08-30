@@ -67,14 +67,11 @@ class GraphBLASSpy(MatrixSpyAdapter):
         # construct a triple product that will scale the matrix
         left, right = generate_spy_triple_product_gb(self.mat.shape, spy_shape)
 
-        # Construct a pattern view of the matrix
-        pattern = gb.Matrix('int64', nrows=self.mat.nrows, ncols=self.mat.ncols)
-        pattern(mask=self.mat.S) << 1
-
         # construct result
         spy = gb.Matrix(float, nrows=spy_shape[0], ncols=spy_shape[1])
 
         # triple product
-        spy << gb.semiring.plus_times(left @ pattern @ right)
+        # spy << gb.semiring.plus_first(left @ self.mat @ right)   # appears to be broken
+        spy << left.mxm(self.mat, op="plus_first").mxm(right, op="plus_first")
 
         return spy.to_dense(fill_value=0, dtype=spy.dtype)
