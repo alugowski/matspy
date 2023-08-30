@@ -35,6 +35,14 @@ spy(A)
 * `spy_to_mpl(A)`: Same as `spy()` but returns the matplotlib Figure without showing it.
 * `to_spy_heatmap(A)`: Return the raw 2D array for spy plots. 
 
+#### Example: spy plot screenshot as a PNG image
+
+```python
+fig, ax = matspy.spy_to_mpl(A)
+
+fig.savefig("spy.png", bbox_inches='tight')
+```
+
 ## Arguments
 
 All methods take the same arguments. Apart from the matrix itself:
