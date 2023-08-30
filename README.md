@@ -4,15 +4,16 @@
 
 # MatSpy
 
-Sparse matrix spy plot and sparkline renderer.
+Sparse matrix spy plot and sparkline renderer. Supports:
+* **SciPy** - sparse matrices and arrays like `csr_matrix` and `coo_array`
+* **[Python-graphblas](https://github.com/python-graphblas/python-graphblas)** - `gb.Matrix`. [See demo.](demo-python-graphblas.ipynb)
 
-Supports:
-* `scipy.sparse` sparse matrices and arrays like `csr_matrix` and `coo_array`.
-* `python-graphblas` sparse matrix `gb.Matrix`. [See demo.](demo-python-graphblas.ipynb)
+Features:
+* Simple `spy()` method, similar to MatLAB's spy.
+* Sparklines: `to_sparkline()` creates self-contained small spy plots for inline visuals.
+* FAST.
 
 See a [Jupyter notebook demo](demo.ipynb).
-
-For HTML/LaTeX see [MatRepr](https://github.com/alugowski/matrepr).
 
 ## Quick Start
 
@@ -30,7 +31,7 @@ spy(A)
 
 ## Methods
 * `spy(A)`: Plot the sparsity pattern (location of nonzero values) of sparse matrix `A`.
-* `to_sparkline(A)`: Return a small spy plot as a self-contained HTML string.
+* `to_sparkline(A)`: Return a small spy plot as a self-contained HTML string. Multiple sparklines can be automatically to-scale with each other using the `retscale` and `scale` arguments.
 * `spy_to_mpl(A)`: Same as `spy()` but returns the matplotlib Figure without showing it.
 * `to_spy_heatmap(A)`: Return the raw 2D array for spy plots. 
 
@@ -60,8 +61,7 @@ matspy.params.indices = False
 
 `spy()` simply shows a matplotlib figure and works well within Jupyter.
 
-`to_sparkline()` can create small matrix visualizations that work anywhere HTML is displayed.
-Multiple sparklines can be automatically to-scale with each other using the `retscale` and `scale` arguments.
+`to_sparkline()` creates small spy plots that work anywhere HTML is displayed.
 
 # Fast
 All operations work with very large matrices.
@@ -70,6 +70,8 @@ A spy plot of tens of millions of elements takes less than half a second.
 Large matrices are downscaled using two native matrix multiplies. The final dense 2D image is small.
 
 <img src="doc/images/triple_product.png" height="125" width="400" alt="triple product"/>
+
+Note: the spy plots in this image were created with `to_sparkline()`.
 
 # Spy Plot Anti-Aliasing
 One application of spy plots is to quickly see if a matrix has a noticeable structure.
