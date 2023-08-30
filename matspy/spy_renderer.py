@@ -67,6 +67,9 @@ def get_spy_heatmap(adapter: MatrixSpyAdapter, buckets, shading, shading_absolut
 
     dense = adapter.get_spy(spy_shape=spy_shape)
 
+    if not dense.flags.writeable:
+        dense = np.array(dense)
+
     dense[dense < 0] = 0
 
     # scale values
