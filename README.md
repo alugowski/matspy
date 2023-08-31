@@ -8,6 +8,7 @@ Sparse matrix spy plot and sparkline renderer. Supports:
 * **SciPy** - sparse matrices and arrays like `csr_matrix` and `coo_array` [(demo)](demo.ipynb)
 * **NumPy** - `ndarray` [(demo)](demo-numpy.ipynb)
 * **[Python-graphblas](https://github.com/python-graphblas/python-graphblas)** - `gb.Matrix` [(demo)](demo-python-graphblas.ipynb)
+* **[PyData/Sparse](https://sparse.pydata.org/)** - `COO`, `DOK`, `GCXS`  [(demo)](demo-pydata-sparse.ipynb)
 
 Features:
 * Simple `spy()` method, similar to MatLAB's spy.
