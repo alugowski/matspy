@@ -1,6 +1,6 @@
 [project]
 name = "matspy"
-version = "0.7"
+version = "0.7.1"
 description="Sparse matrix spy plot and sparkline renderer that works with Jupyter."
 readme = "README.md"
 authors = [
