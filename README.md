@@ -1,6 +1,7 @@
 [![tests](https://github.com/alugowski/matspy/actions/workflows/tests.yml/badge.svg)](https://github.com/alugowski/matspy/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/alugowski/matspy/graph/badge.svg?token=m2xJcl5iAQ)](https://codecov.io/gh/alugowski/matspy)
 [![PyPI version](https://badge.fury.io/py/matspy.svg)](https://pypi.org/project/matspy/)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/matspy.svg)](https://anaconda.org/conda-forge/matspy)
 
 # MatSpy
 
@@ -22,6 +23,10 @@ See a [Jupyter notebook demo](demo.ipynb).
 ```shell
 pip install matspy
 ```
+or
+```shell
+ conda install matspy 
+ ```
 
 ```python
 from matspy import spy
