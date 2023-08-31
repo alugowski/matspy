@@ -41,6 +41,11 @@ jobs:
         pip install suitesparse-graphblas==7.4.4.1a1
         pip install python-graphblas
 
+    - name: Install pydata sparse
+      if: ${{ !contains(matrix.python-version, 'pypy') && matrix.python-version != '3.7' }}  # no wheels for pypy and old python
+      run: |
+        pip install sparse
+
     - name: Test without Jupyter
       if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
       run: pytest

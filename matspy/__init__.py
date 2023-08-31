@@ -131,6 +131,9 @@ def _register_bundled():
     from .adapters.graphblas_driver import GraphBLASDriver
     register_driver(GraphBLASDriver)
 
+    from .adapters.sparse_driver import PyDataSparseDriver
+    register_driver(PyDataSparseDriver)
+
 
 _register_bundled()
 
