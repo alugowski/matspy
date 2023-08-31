@@ -28,12 +28,21 @@ class NumPySpy(MatrixSpyAdapter):
     def get_spy(self, spy_shape: tuple) -> np.array:
         precision = self.get_option("precision", None)
 
-        if not precision:
-            mask = (self.arr != 0)
-        else:
-            mask = (self.arr > precision) | (self.arr < -precision)
-
         if self.arr.dtype == 'object':
-            mask = mask & (self.arr != np.array([None]))
+            not_none = (self.arr != np.array([None]))
+            if precision:
+                arr = self.arr
+                if not np.all(not_none):
+                    # avoid comparisons to None by making a copy and replacing None with 0
+                    arr = arr.copy()
+                    arr[arr == np.array([None])] = 0
+                mask = (arr > precision) | (arr < -precision)
+            else:
+                mask = (self.arr != 0) & not_none
+        else:
+            if precision:
+                mask = (self.arr > precision) | (self.arr < -precision)
+            else:
+                mask = (self.arr != 0)
 
         return SciPySpy(csr_matrix(mask)).get_spy(spy_shape)
