@@ -44,7 +44,23 @@ class NumPyTests(unittest.TestCase):
             area = np.prod(arr.shape)
             heatmap = to_spy_heatmap(arr, buckets=1, shading="absolute")
             self.assertEqual(len(heatmap), 1)
-            self.assertAlmostEqual(heatmap[0][0], count / area, places=2)
+            self.assertAlmostEqual( count / area, heatmap[0][0], places=2)
+
+    def test_precision(self):
+        precision = 0.5
+        arrs = [
+            (1, np.array([[1]])),
+            (1, np.array([[1, 0], [0, 0]])),
+            (1, np.array([[1, None], [0.4, -0.2]])),
+            (1, np.array([[1, 0], [None, None]])),
+            (1, np.array([[1, 0.5], [0, -0.1]])),
+        ]
+
+        for count, arr in arrs:
+            area = np.prod(arr.shape)
+            heatmap = to_spy_heatmap(arr, buckets=1, shading="absolute", precision=precision)
+            self.assertEqual(len(heatmap), 1)
+            self.assertAlmostEqual( count / area, heatmap[0][0], places=2)
 
 
 if __name__ == '__main__':
