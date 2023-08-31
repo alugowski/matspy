@@ -1,7 +1,7 @@
 [project]
 name = "matspy"
 version = "0.7"
-description="Sparse matrix spy plot, HTML, and LaTeX rendering with Jupyter integration."
+description="Sparse matrix spy plot and sparkline renderer that works with Jupyter."
 readme = "README.md"
 authors = [
     { name = "Adam Lugowski"},
