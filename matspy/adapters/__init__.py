@@ -24,6 +24,8 @@ def describe(shape: tuple = None, nnz: int = None, nz_type=None, notes: str = No
     if nnz is not None:
         dtype_str = f" '{str(nz_type)}'" if nz_type else ""
         parts.append(f"{nnz}{dtype_str} elements")
+    elif nz_type is not None:
+        parts.append(f"'{str(nz_type)}' elements")
 
     if notes:
         parts.append(notes)
@@ -32,6 +34,9 @@ def describe(shape: tuple = None, nnz: int = None, nz_type=None, notes: str = No
 
 
 class MatrixSpyAdapter(ABC):
+    def __init__(self):
+        self.options = {}
+
     @abstractmethod
     def describe(self) -> str:
         pass
@@ -43,6 +48,12 @@ class MatrixSpyAdapter(ABC):
     @abstractmethod
     def get_spy(self, spy_shape: tuple) -> np.array:
         pass
+
+    def set_option(self, key, value):
+        self.options[key] = value
+
+    def get_option(self, key, dflt):
+        return self.options.get(key, dflt)
 
 
 class Driver(ABC):

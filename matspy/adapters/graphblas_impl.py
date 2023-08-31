@@ -34,6 +34,7 @@ def generate_spy_triple_product_gb(matrix_shape, spy_shape) -> Tuple[gb.Matrix, 
 
 class GraphBLASSpy(MatrixSpyAdapter):
     def __init__(self, mat):
+        super().__init__()
         self.mat = mat
 
     def get_shape(self) -> tuple:
@@ -63,7 +64,7 @@ class GraphBLASSpy(MatrixSpyAdapter):
                         nnz=self.mat.nvals,
                         notes=", ".join(parts))
 
-    def get_spy(self, spy_shape):
+    def get_spy(self, spy_shape: tuple) -> np.array:
         # construct a triple product that will scale the matrix
         left, right = generate_spy_triple_product_gb(self.mat.shape, spy_shape)
 

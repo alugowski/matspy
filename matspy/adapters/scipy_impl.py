@@ -24,6 +24,7 @@ def generate_spy_triple_product_coo(matrix_shape, spy_shape) -> Tuple[scipy.spar
 
 class SciPySpy(MatrixSpyAdapter):
     def __init__(self, mat):
+        super().__init__()
         self.mat = mat
 
     def get_shape(self) -> tuple:
@@ -35,7 +36,7 @@ class SciPySpy(MatrixSpyAdapter):
         return describe(shape=self.mat.shape, nnz=self.mat.nnz, nz_type=self.mat.dtype,
                         notes=f"{format_name}")
 
-    def get_spy(self, spy_shape):
+    def get_spy(self, spy_shape: tuple) -> np.array:
         # construct a triple product that will scale the matrix
         left, right = generate_spy_triple_product_coo(self.mat.shape, spy_shape)
 
