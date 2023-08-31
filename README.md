@@ -5,8 +5,9 @@
 # MatSpy
 
 Sparse matrix spy plot and sparkline renderer. Supports:
-* **SciPy** - sparse matrices and arrays like `csr_matrix` and `coo_array`
-* **[Python-graphblas](https://github.com/python-graphblas/python-graphblas)** - `gb.Matrix`. [See demo.](demo-python-graphblas.ipynb)
+* **SciPy** - sparse matrices and arrays like `csr_matrix` and `coo_array` [(demo)](demo.ipynb)
+* **NumPy** - `ndarray` [(demo)](demo-numpy.ipynb)
+* **[Python-graphblas](https://github.com/python-graphblas/python-graphblas)** - `gb.Matrix` [(demo)](demo-python-graphblas.ipynb)
 
 Features:
 * Simple `spy()` method, similar to MatLAB's spy.
@@ -53,6 +54,7 @@ All methods take the same arguments. Apart from the matrix itself:
 * `shading`: `binary`, `relative`, `absolute`.
 * `buckets`: spy plot pixels (longest side).
 * `dpi`: determine `buckets` relative to figure size.
+* `precision`: For numpy arrays, magnitude less than this is considered zero. Like [matplotlib.pyplot.spy()](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.spy.html)'s `precision`.
 
 ### Overriding defaults
 `matspy.params` contains the default values for all arguments.

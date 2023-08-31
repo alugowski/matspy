@@ -59,12 +59,16 @@ def _rescale(arr, from_range, to_range):
 
 # noinspection PyUnusedLocal
 def get_spy_heatmap(adapter: MatrixSpyAdapter, buckets, shading, shading_absolute_min,
-                    shading_relative_min, shading_relative_max_percentile, **kwargs):
+                    shading_relative_min, shading_relative_max_percentile, precision, **kwargs):
     # find spy matrix shape
     mat_shape = adapter.get_shape()
+    if mat_shape[0] == 0 or mat_shape[1] == 0:
+        return np.array([[]])
+
     ratio = buckets / max(mat_shape)
     spy_shape = tuple(max(1, int(ratio * x)) for x in mat_shape)
 
+    adapter.set_option("precision", precision)
     dense = adapter.get_spy(spy_shape=spy_shape)
 
     if not dense.flags.writeable:
@@ -239,6 +243,10 @@ def to_sparkline(mat, retscale=False, scale=None, html_border="1px solid black",
     repeat = int(repeat) if repeat >= 2 else 1
 
     heatmap = to_spy_heatmap(adapter, **options.to_kwargs())
+    if heatmap.size == 0:
+        # zero-size
+        return "&#9643;"  # a single character that is an empty square
+
     if repeat > 1:
         heatmap = heatmap.repeat(repeat, axis=0)
         heatmap = heatmap.repeat(repeat, axis=1)
