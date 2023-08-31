@@ -54,7 +54,7 @@ All methods take the same arguments. Apart from the matrix itself:
 * `shading`: `binary`, `relative`, `absolute`.
 * `buckets`: spy plot pixels (longest side).
 * `dpi`: determine `buckets` relative to figure size.
-* `precision`: For numpy arrays, magnitude less than this is considered zero. Like [matplotlib.pyplot.spy()](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.spy.html)'s `precision`.
+* `precision`: For numpy arrays, only plot values with magnitude greater than `precision`. Like [matplotlib.pyplot.spy()](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.spy.html)'s `precision`.
 
 ### Overriding defaults
 `matspy.params` contains the default values for all arguments.
