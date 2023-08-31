@@ -54,6 +54,14 @@ class MatSpyParams:
     buckets: int = None
     """Pixel count of longest side of spy image. If None then computed from size and DPI."""
 
+    precision: float = None
+    """
+    Applies to dense matrices like numpy arrays. If None or 0, nonzero values are plotted. Else only values with
+    absolute value > `precision` are plotted.
+    
+    Behaves like `matplotlib.pyplot.spy`'s `precision` argument, but for dense arrays only.
+    """
+
     spy_aa_tweaks_enabled: bool = None
     """
     Whether to_sparkline() may tweak parameters like bucket count to prevent visible aliasing artifacts.
@@ -117,6 +125,9 @@ def _register_bundled():
     from .adapters.scipy_driver import SciPyDriver
     register_driver(SciPyDriver)
 
+    from .adapters.numpy_driver import NumPyDriver
+    register_driver(NumPyDriver)
+
     from .adapters.graphblas_driver import GraphBLASDriver
     register_driver(GraphBLASDriver)
 
@@ -125,7 +136,7 @@ _register_bundled()
 
 
 def _get_driver(mat):
-    type_str = ".".join((mat.__module__, mat.__class__.__name__))
+    type_str = ".".join((type(mat).__module__, type(mat).__name__))
     for prefix, driver in _driver_prefixes.items():
         if type_str.startswith(prefix):
             return driver
