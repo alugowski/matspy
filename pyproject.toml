@@ -23,6 +23,17 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 
+keywords = [
+    "matrix",
+    "sparse",
+    "spy",
+    "plot",
+    "graph",
+    "numpy",
+    "scipy",
+    "graphblas",
+]
+
 [project.urls]
 homepage = "https://github.com/alugowski/matspy"
 repository = "https://github.com/alugowski/matspy"
