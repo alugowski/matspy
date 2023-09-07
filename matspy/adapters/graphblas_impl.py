@@ -72,7 +72,6 @@ class GraphBLASSpy(MatrixSpyAdapter):
         spy = gb.Matrix(float, nrows=spy_shape[0], ncols=spy_shape[1])
 
         # triple product
-        # spy << gb.semiring.plus_first(left @ self.mat @ right)   # appears to be broken
-        spy << left.mxm(self.mat, op="plus_first").mxm(right, op="plus_first")
+        spy << left.mxm(self.mat, op=gb.semiring.plus_first).mxm(right, op=gb.semiring.plus_first)
 
         return spy.to_dense(fill_value=0, dtype=spy.dtype)
