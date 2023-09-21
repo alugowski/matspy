@@ -1,0 +1,3 @@
+# Ignore demo notebooks from the GitHub language bar
+demo* linguist-vendored
+
