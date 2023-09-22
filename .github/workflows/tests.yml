@@ -22,50 +22,45 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install base dependencies
-      run: pip install numpy matplotlib pytest
+      run: pip install numpy matplotlib pytest pytest-subtests html5lib
 
     - name: Test minimums
-      run: pytest tests/test_basic.py
-
-    - name: Install test dependencies
-      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
-      run: pip install pytest numpy matplotlib pytest-subtests html5lib scipy
-
-    - name: Test only scipy
-      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
       run: pytest
 
+    - name: Install SciPy
+      # --only-binary disables compiling the package from source if a binary wheel is not available, such as PyPy
+      run: pip install --only-binary ":all:" scipy || true
+
     - name: Install python-graphblas
-      if: ${{ !contains(matrix.python-version, 'pypy') && matrix.python-version != '3.7' }}  # no wheels for pypy and old python
+      if: ${{ !contains(matrix.python-version, 'pypy') && matrix.python-version != '3.7' }}  # no wheels for PyPy or old Python
       run: |
         pip install suitesparse-graphblas==7.4.4.1a1
         pip install python-graphblas
 
     - name: Install pydata sparse
-      if: ${{ !contains(matrix.python-version, 'pypy') && matrix.python-version != '3.7' }}  # no wheels for pypy and old python
+      if: ${{ !contains(matrix.python-version, 'pypy') && matrix.python-version != '3.7' }}  # no wheels for PyPy or old Python
       run: |
         pip install sparse
 
     - name: Test without Jupyter
-      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
       run: pytest
 
     - name: Install Jupyter
-      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
+      if: ${{ !contains(matrix.python-version, 'pypy') }}
       run: pip install jupyter
 
     - name: Test with Jupyter
-      if: ${{ !contains(matrix.python-version, 'pypy') }}  # no scipy wheels for pypy
+      if: ${{ !contains(matrix.python-version, 'pypy') }}
       run: pytest
 
     - name: Test with Coverage
-      if: ${{ contains(matrix.os, 'ubuntu') && !contains(matrix.python-version, 'pypy') }}
+      if: ${{ contains(matrix.os, 'ubuntu') }}
       run: |
         pip install pytest-cov
         pytest --cov=matspy --cov-report term --cov-report=xml
 
     - name: Upload Coverage to Codecov
-      if: ${{ contains(matrix.os, 'ubuntu') && !contains(matrix.python-version, 'pypy') }}
+      if: ${{ contains(matrix.os, 'ubuntu') }}
       uses: codecov/codecov-action@v3
       with:
         gcov: true

@@ -5,12 +5,17 @@
 import unittest
 
 import numpy as np
+try:
+    import scipy
+except ImportError:
+    scipy = None
 
 from matspy import spy_to_mpl, to_sparkline, to_spy_heatmap
 
 np.random.seed(123)
 
 
+@unittest.skipIf(scipy is None, "scipy not installed")  # scipy is used internally by numpy_impl
 class NumPyTests(unittest.TestCase):
     def setUp(self):
         self.mats = [

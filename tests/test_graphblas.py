@@ -12,13 +12,11 @@ try:
 
     # Context initialization must happen before any other imports
     gb.init("suitesparse", blocking=True)
-
-    have_gb = True
 except ImportError:
-    have_gb = False
+    gb = None
 
 
-@unittest.skipIf(not have_gb, "python-graphblas not installed")
+@unittest.skipIf(gb is None, "python-graphblas not installed")
 class GraphBLASTests(unittest.TestCase):
     def setUp(self):
         self.mats = [

@@ -40,3 +40,4 @@ repository = "https://github.com/alugowski/matspy"
 
 [project.optional-dependencies]
 test = ["pytest", "scipy", "matplotlib", "html5lib", "matrepr"]
+testextra = ["python-graphblas", "sparse"]
