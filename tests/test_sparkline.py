@@ -5,13 +5,18 @@
 import unittest
 
 import numpy.random
-import scipy.sparse
+try:
+    import scipy
+    import scipy.sparse
+except ImportError:
+    scipy = None
 
 from matspy import to_sparkline
 
 numpy.random.seed(123)
 
 
+@unittest.skipIf(scipy is None, "scipy not installed")
 class SparklineTests(unittest.TestCase):
     def test_small_buckets(self):
         for dims in [(1001, 1001), (11, 11)]:

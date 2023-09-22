@@ -5,12 +5,18 @@
 import unittest
 
 import numpy.random
-import scipy.sparse
+try:
+    import scipy
+    import scipy.sparse
+except ImportError:
+    scipy = None
+
 from matspy import to_spy_heatmap
 
 numpy.random.seed(123)
 
 
+@unittest.skipIf(scipy is None, "scipy not installed")
 class SpyHeatmapTests(unittest.TestCase):
     def test_buckets_1(self):
         density = 0.3

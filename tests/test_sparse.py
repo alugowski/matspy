@@ -10,14 +10,18 @@ except ImportError:
     sparse = None
 
 import numpy as np
-import scipy.sparse
+try:
+    import scipy
+    import scipy.sparse
+except ImportError:
+    scipy = None
 
 from matspy import spy_to_mpl, to_sparkline, to_spy_heatmap
 
 np.random.seed(123)
 
 
-@unittest.skipIf(sparse is None, "pydata/sparse not installed")
+@unittest.skipIf(sparse is None or scipy is None, "pydata/sparse not installed")
 class PyDataSparseTests(unittest.TestCase):
     def setUp(self):
         self.mats = [

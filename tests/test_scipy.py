@@ -5,13 +5,18 @@
 import unittest
 
 import numpy.random
-import scipy.sparse
+try:
+    import scipy
+    import scipy.sparse
+except ImportError:
+    scipy = None
 
 from matspy import spy_to_mpl, to_sparkline
 
 numpy.random.seed(123)
 
 
+@unittest.skipIf(scipy is None, "scipy not installed")
 class SciPyTests(unittest.TestCase):
     def setUp(self):
         self.mats = [
