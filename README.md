@@ -5,28 +5,7 @@
 
 # MatSpy
 
-Sparse matrix spy plot and sparkline renderer. Supports:
-* **SciPy** - sparse matrices and arrays like `csr_matrix` and `coo_array` [(demo)](demo.ipynb)
-* **NumPy** - `ndarray` [(demo)](demo-numpy.ipynb)
-* **[Python-graphblas](https://github.com/python-graphblas/python-graphblas)** - `gb.Matrix` [(demo)](demo-python-graphblas.ipynb)
-* **[PyData/Sparse](https://sparse.pydata.org/)** - `COO`, `DOK`, `GCXS`  [(demo)](demo-pydata-sparse.ipynb)
-
-Features:
-* Simple `spy()` method, similar to MatLAB's spy.
-* Sparklines: `to_sparkline()` creates self-contained small spy plots for inline visuals.
-* FAST.
-
-See a [Jupyter notebook demo](demo.ipynb).
-
-## Quick Start
-
-```shell
-pip install matspy
-```
-or
-```shell
- conda install matspy 
- ```
+Sparse matrix spy plot and sparkline renderer.
 
 ```python
 from matspy import spy
@@ -36,17 +15,40 @@ spy(A)
 
 <img src="doc/images/spy.png" width="400" alt="Spy Plot"/>
 
+Supports:
+* **SciPy** - sparse matrices and arrays like `csr_matrix` and `coo_array` [(demo)](demo.ipynb)
+* **NumPy** - `ndarray` [(demo)](demo-numpy.ipynb)
+* **[Python-graphblas](https://github.com/python-graphblas/python-graphblas)** - `gb.Matrix` [(demo)](demo-python-graphblas.ipynb)
+* **[PyData/Sparse](https://sparse.pydata.org/)** - `COO`, `DOK`, `GCXS`  [(demo)](demo-pydata-sparse.ipynb)
+
+Features:
+* Simple `spy()` method plots non-zero structure of a matrix, similar to MatLAB's spy.
+* Sparklines: `to_sparkline()` creates small self-contained spy plots for inline HTML visuals.
+* FAST and handles very large matrices.
+
+See a [Jupyter notebook demo](demo.ipynb).
+
+```shell
+pip install matspy
+```
+```shell
+conda install matspy
+ ```
+
 ## Methods
 * `spy(A)`: Plot the sparsity pattern (location of nonzero values) of sparse matrix `A`.
 * `to_sparkline(A)`: Return a small spy plot as a self-contained HTML string. Multiple sparklines can be automatically to-scale with each other using the `retscale` and `scale` arguments.
 * `spy_to_mpl(A)`: Same as `spy()` but returns the matplotlib Figure without showing it.
 * `to_spy_heatmap(A)`: Return the raw 2D array for spy plots. 
 
-#### Example: spy plot screenshot as a PNG image
+## Examples
+
+See the [demo notebook](demo.ipynb) for more.
+
+#### Save spy plot as a PNG image
 
 ```python
 fig, ax = matspy.spy_to_mpl(A)
-
 fig.savefig("spy.png", bbox_inches='tight')
 ```
 
@@ -87,7 +89,7 @@ Large matrices are downscaled using two native matrix multiplies. The final dens
 
 <img src="doc/images/triple_product.png" height="125" width="400" alt="triple product"/>
 
-Note: the spy plots in this image were created with `to_sparkline()`.
+Note: the spy plots in this image were created with `to_sparkline()`. Code in the [demo notebook](demo.ipynb).
 
 # Spy Plot Anti-Aliasing
 One application of spy plots is to quickly see if a matrix has a noticeable structure.
@@ -114,4 +116,4 @@ Each package that MatSpy supports implements two classes:
 
 See [matspy/adapters](matspy/adapters) for details.
 
-You may use `matspy.register_driver` to register a Driver for your own matrix class.
+You may use `matspy.register_driver` to register a `Driver` for your own matrix class.
