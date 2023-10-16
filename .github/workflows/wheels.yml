@@ -42,15 +42,15 @@ jobs:
       - name: Check
         run: pipx run twine check dist/*
 
-      # Upload to PyPI
       - uses: pypa/gh-action-pypi-publish@release/v1
+        name: Upload to PyPI
         if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.event.inputs.upload_dest == 'PyPI')
         with:
           verbose: true
           password: ${{ secrets.PYPI_API_TOKEN }}
 
-      # Upload to Test PyPI
       - uses: pypa/gh-action-pypi-publish@release/v1
+        name: Upload to Test PyPI
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.upload_dest == 'Test PyPI'
         with:
           verbose: true
