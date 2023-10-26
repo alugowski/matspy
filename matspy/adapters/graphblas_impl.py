@@ -56,12 +56,9 @@ class GraphBLASSpy(MatrixSpyAdapter):
     def describe(self) -> str:
         parts = [f"gb.{type(self.mat).__name__}", f"'{self.mat.dtype}'"]
 
-        fmt = self.get_format()
-        if fmt:
-            parts.append(fmt)
-
         return describe(shape=self.mat.shape,
                         nnz=self.mat.nvals,
+                        layout=self.get_format(),
                         notes=", ".join(parts))
 
     def get_spy(self, spy_shape: tuple) -> np.array:
