@@ -31,13 +31,14 @@ class PyDataSparseSpy(MatrixSpyAdapter):
         return self.mat.shape
 
     def describe(self) -> str:
-        parts = [
-            self.mat.format,
-        ]
+        try:
+            fmt = self.mat.format
+        except AttributeError:
+            fmt = self.mat.__class__.__name__
 
         return describe(shape=self.mat.shape,
                         nnz=self.mat.nnz, nz_type=self.mat.dtype,
-                        notes=", ".join(parts))
+                        layout=fmt)
 
     def get_spy(self, spy_shape: tuple) -> np.array:
         if isinstance(self.mat, sparse.DOK):

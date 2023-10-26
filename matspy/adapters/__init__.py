@@ -8,7 +8,7 @@ from typing import Any, Iterable, Optional, Tuple
 import numpy as np
 
 
-def describe(shape: tuple = None, nnz: int = None, nz_type=None, notes: str = None) -> str:
+def describe(shape: tuple = None, nnz: int = None, nz_type=None, layout: str = None, notes: str = None) -> str:
     """
     Create a simple description string from potentially interesting pieces of metadata.
     """
@@ -26,6 +26,9 @@ def describe(shape: tuple = None, nnz: int = None, nz_type=None, notes: str = No
         parts.append(f"{nnz}{dtype_str} elements")
     elif nz_type is not None:
         parts.append(f"'{str(nz_type)}' elements")
+
+    if layout is not None:
+        parts.append(str(layout))
 
     if notes:
         parts.append(notes)

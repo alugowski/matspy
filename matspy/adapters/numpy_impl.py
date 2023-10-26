@@ -20,10 +20,7 @@ class NumPySpy(MatrixSpyAdapter):
         return self.arr.shape
 
     def describe(self) -> str:
-        format_name = "array"
-
-        return describe(shape=self.arr.shape, nz_type=self.arr.dtype,
-                        notes=f"{format_name}")
+        return describe(shape=self.arr.shape, nz_type=self.arr.dtype, layout="array")
 
     def get_spy(self, spy_shape: tuple) -> np.array:
         precision = self.get_option("precision", None)

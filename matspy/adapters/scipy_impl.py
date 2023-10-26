@@ -31,10 +31,8 @@ class SciPySpy(MatrixSpyAdapter):
         return self.mat.shape
 
     def describe(self) -> str:
-        format_name = self.mat.getformat()
-
         return describe(shape=self.mat.shape, nnz=self.mat.nnz, nz_type=self.mat.dtype,
-                        notes=f"{format_name}")
+                        layout=self.mat.getformat())
 
     def get_spy(self, spy_shape: tuple) -> np.array:
         # construct a triple product that will scale the matrix
