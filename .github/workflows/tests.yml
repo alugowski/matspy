@@ -62,5 +62,5 @@ jobs:
       if: ${{ contains(matrix.os, 'ubuntu') }}
       uses: codecov/codecov-action@v4
       with:
-        gcov: true
-        gcov_include: matspy/*
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: matspy
